@@ -19,6 +19,10 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     // 表示したいデータ（配列）
     var teaList = ["ダージリン","アールグレイ","アッサム","オレンジペコ"]
     
+    //何行目が選択されたかを保存する関数
+    //何も行番号が押されて居ない
+    var selectedIndex = -1
+    
     
     
     override func viewDidLoad() {
@@ -62,6 +66,37 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         
         //文字を設定したセルを返す
         return cell
+        
+    }
+    
+    //セルをタップしたら発動するメソッド
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row)が行目、\(teaList[indexPath.row])がタップされました")
+        //セグウェを使って移動する時に値を渡す
+        selectedIndex = indexPath.row
+        //選択された行番号をほぞん
+        
+        //セグエに名前を指定して画面遷移処理を発動
+        performSegue(withIdentifier: "showDetail", sender: nil)
+        
+    }
+    
+    
+    
+        
+    
+    
+    //セグエを使って画面遷移している時発動
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //次の画面のインスタンス(オブジェクト)を取得
+        //as!DetailViewControllerがダウンキャスト変換している箇所
+        let dvc: DetailViewController =
+            segue.destination
+            as!DetailViewController
+        
+        //次の画面のプロパティ（メンバ変数）passedIndexに選択された行番号を渡す
+        dvc.passedIndex = selectedIndex
+        
         
     }
     
