@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
         recieveTLLabel.text = teaList[passedIndex]
         myTextView.text = sentences[passedIndex]
         teaImage.image = UIImage(named: "\(passedIndex).jpg")
-        
+        myTextView.isEditable = false
     }
     
     override func didReceiveMemoryWarning() {
